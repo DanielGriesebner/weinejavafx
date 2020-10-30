@@ -82,13 +82,13 @@ public class FileManager {
 
     }
 
-    public void insertWein(String reebe, String land, String umbgebung, String weingut, String bezeichnung, String art, String jahrgang, double liter, double preis, int bestand) {
-      //Wein wein = new Wein(++lastIndex, reebe, land, umbgebung, weingut, bezeichnung, art, jahrgang, liter, preis, bestand);
-       //if (weine.contains(wein)) {
-            //lastIndex--;
-      //} else {
-           // weine.add(wein);
-        //}
+    public void insertWein( String reebsorte, String qualitaetsbezeichnung, boolean dac, Weinart weinart, String jahrgang, String land, String weingut, String ort, String umgebung, double preis, int bestand, double liter, float alkoholgehalt) {
+      Wein wein = new Wein(++lastIndex, reebsorte, qualitaetsbezeichnung, dac, weinart, jahrgang, land, weingut, ort, umgebung, preis, bestand, liter, alkoholgehalt);
+       if (weine.contains(wein)) {
+            lastIndex--;
+      } else {
+           weine.add(wein);
+        }
     }
 
     public void weineToString(){
