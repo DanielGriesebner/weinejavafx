@@ -18,9 +18,11 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("MainPage"));
+        scene.getStylesheets().add(App.class.getResource("style.css").toString());
         stage.setScene(scene);
         stage.show();
     }
+
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));

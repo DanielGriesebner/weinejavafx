@@ -1,18 +1,24 @@
 package at.weine;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.Objects;
 
 public class Wein extends VBox {
 
-    private final double WIDTH = 300d;
-    private final double HEIGHT = 400d;
+    private final double WIDTH = 400d;
+    private final double HEIGHT = 500d;
 
     private int id;
 
@@ -60,23 +66,49 @@ public class Wein extends VBox {
     }
 
     public void createGUI(){
+        //super.setPadding(new Insets(2));
+        super.setStyle("-fx-background-color: lightgrey;");
+
+        createHeader();
+        createImage();
+    }
+
+    private void createHeader(){
+        HBox hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setMaxWidth(WIDTH);
+        hbox.setSpacing(2d);
+
+        double width = WIDTH/4;
+        String cssID = "header";
+        TextField reebsorte = makeTextField(this.reebsorte, width, cssID);
+        TextField quali = makeTextField(qualitaetsbezeichnung, width, cssID);
+        TextField art = makeTextField(weinart.toString(), width+20, cssID);
+        TextField jahrgang = makeTextField(this.jahrgang, 50d, cssID);
+
+        hbox.getChildren().addAll(reebsorte, quali, art, jahrgang);
+        super.getChildren().add(hbox);
+    }
+
+    private void createImage(){
         HBox hbox = new HBox();
         hbox.setMaxWidth(WIDTH);
-        hbox.setMaxHeight(HEIGHT);
-        hbox.setSpacing(2d);
-        hbox.setStyle("-fx-background-color: lightgreen");
-        TextField field = new TextField(reebsorte);
-        field.setEditable(false);
-        field.setBackground(Background.EMPTY);
-        TextField field1 = new TextField(qualitaetsbezeichnung);
-        field1.setEditable(false);
-        field1.setBackground(Background.EMPTY);
-        hbox.getChildren().addAll(field, field1);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setMaxHeight(300d);
+        ImageView imgv = new ImageView(image);
+        imgv.setFitWidth(WIDTH);
+        imgv.setFitHeight(300d);
+        hbox.getChildren().add(imgv);
         super.getChildren().add(hbox);
-        ImageView imgV = new ImageView(image);
-        imgV.setFitHeight(HEIGHT-100);
-        imgV.setFitWidth(WIDTH);
-        super.getChildren().add(imgV);
+    }
+
+    private TextField makeTextField(String text, double width, String id){
+        TextField field = new TextField(text);
+        field.setMaxWidth(width);
+        field.setBackground(Background.EMPTY);
+        field.setEditable(false);
+        field.setId(id);
+        return field;
     }
 
     @Override

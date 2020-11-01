@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class FileManager {
 
 
-    public static final File WEINE = new File("src/at/weine/model/weine.csv");
+    public static final File WEINE = new File("weine.csv");
     private static FileManager instance = null;
 
     private List<Wein> weine;
