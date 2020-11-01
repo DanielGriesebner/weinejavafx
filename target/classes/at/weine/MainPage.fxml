@@ -21,7 +21,7 @@
                      <content>
                         <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="ALWAYS">
                            <content>
-                              <FlowPane prefWrapLength="0.0" />
+                              <FlowPane fx:id="weinefeed" hgap="10.0" prefWrapLength="0.0" vgap="10.0" />
                            </content>
                         </ScrollPane>
                      </content>

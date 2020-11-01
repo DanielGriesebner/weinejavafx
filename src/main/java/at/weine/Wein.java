@@ -1,12 +1,19 @@
 package at.weine;
 
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 
 public class Wein extends VBox {
 
+    private final double WIDTH = 300d;
+    private final double HEIGHT = 400d;
+
     private int id;
+
 
     private String reebsorte;
     private String qualitaetsbezeichnung;
@@ -41,28 +48,27 @@ public class Wein extends VBox {
         this.bestand = bestand;
         this.liter = liter;
         this.alkoholgehalt = alkoholgehalt;
+        super.setMaxWidth(WIDTH);
+        super.setMaxHeight(HEIGHT);
+        createGUI();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Wein wein = (Wein) o;
-        return dac == wein.dac &&
-                Double.compare(wein.preis, preis) == 0 &&
-                bestand == wein.bestand &&
-                Double.compare(wein.liter, liter) == 0 &&
-                Objects.equals(reebsorte, wein.reebsorte) &&
-                Objects.equals(qualitaetsbezeichnung, wein.qualitaetsbezeichnung) &&
-                weinart == wein.weinart &&
-                Objects.equals(jahrgang, wein.jahrgang) &&
-                Objects.equals(weingut, wein.weingut) &&
-                Objects.equals(ort, wein.ort) &&
-                Objects.equals(umgebung, wein.umgebung);
-    }
+    public void createGUI(){
+        HBox hbox = new HBox();
+        hbox.setMaxWidth(WIDTH);
+        hbox.setMaxHeight(HEIGHT);
+        hbox.setSpacing(2d);
+        hbox.setStyle("-fx-background-color: lightgreen");
+        TextField field = new TextField(reebsorte);
+        field.setEditable(false);
+        field.setBackground(Background.EMPTY);
+        TextField field1 = new TextField(qualitaetsbezeichnung);
+        field1.setEditable(false);
+        field1.setBackground(Background.EMPTY);
+        hbox.getChildren().addAll(field, field1);
+        super.getChildren().add(hbox);
 
-    @Override
-    public int hashCode(){return id;}
+    }
 
     @Override
     public String toString() {
@@ -80,13 +86,18 @@ public class Wein extends VBox {
                 ", preis=" + preis +
                 ", bestand=" + bestand +
                 ", liter=" + liter +
+                ", alkoholgehalt=" + alkoholgehalt +
                 '}';
     }
 
     public String toCSV(){
-        return id + ";" + reebsorte + ";" + qualitaetsbezeichnung + ";" + dac + ";" + weinart + ";" + jahrgang + ";" + land + ";" + weingut + ";" + ort + ";" + umgebung +";" + preis + ";" + bestand + ";" + liter;
+        return id + ";" + reebsorte + ";" + qualitaetsbezeichnung + ";" + dac + ";" + weinart + ";" + jahrgang + ";" + land + ";" + weingut + ";" + ort + ";" + umgebung +";" + preis + ";" + bestand + ";" + liter + ";" + alkoholgehalt;
     }
 
+
+    public void changeBestand(int differenz){
+        this.bestand += differenz;
+    }
 
     public int returnId() {
         return id;
