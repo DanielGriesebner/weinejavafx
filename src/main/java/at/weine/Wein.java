@@ -1,6 +1,8 @@
 package at.weine;
 
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -33,7 +35,9 @@ public class Wein extends VBox {
     private double liter;
     private float alkoholgehalt;
 
-    public Wein(int id, String reebsorte, String qualitaetsbezeichnung, boolean dac, Weinart weinart, String jahrgang, String land, String weingut, String ort, String umgebung, double preis, int bestand, double liter, float alkoholgehalt) {
+    private Image image;
+
+    public Wein(int id, String reebsorte, String qualitaetsbezeichnung, boolean dac, Weinart weinart, String jahrgang, String land, String weingut, String ort, String umgebung, double preis, int bestand, double liter, float alkoholgehalt, Image image) {
         this.id = id;
         this.reebsorte = reebsorte;
         this.qualitaetsbezeichnung = qualitaetsbezeichnung;
@@ -48,8 +52,10 @@ public class Wein extends VBox {
         this.bestand = bestand;
         this.liter = liter;
         this.alkoholgehalt = alkoholgehalt;
+        this.image = image;
         super.setMaxWidth(WIDTH);
         super.setMaxHeight(HEIGHT);
+
         createGUI();
     }
 
@@ -67,13 +73,18 @@ public class Wein extends VBox {
         field1.setBackground(Background.EMPTY);
         hbox.getChildren().addAll(field, field1);
         super.getChildren().add(hbox);
-
+        ImageView imgV = new ImageView(image);
+        imgV.setFitHeight(HEIGHT-100);
+        imgV.setFitWidth(WIDTH);
+        super.getChildren().add(imgV);
     }
 
     @Override
     public String toString() {
         return "Wein{" +
-                "id=" + id +
+                "WIDTH=" + WIDTH +
+                ", HEIGHT=" + HEIGHT +
+                ", id=" + id +
                 ", reebsorte='" + reebsorte + '\'' +
                 ", qualitaetsbezeichnung='" + qualitaetsbezeichnung + '\'' +
                 ", dac=" + dac +
@@ -87,11 +98,12 @@ public class Wein extends VBox {
                 ", bestand=" + bestand +
                 ", liter=" + liter +
                 ", alkoholgehalt=" + alkoholgehalt +
+                ", image=" + image +
                 '}';
     }
 
     public String toCSV(){
-        return id + ";" + reebsorte + ";" + qualitaetsbezeichnung + ";" + dac + ";" + weinart + ";" + jahrgang + ";" + land + ";" + weingut + ";" + ort + ";" + umgebung +";" + preis + ";" + bestand + ";" + liter + ";" + alkoholgehalt;
+        return id + ";" + reebsorte + ";" + qualitaetsbezeichnung + ";" + dac + ";" + weinart + ";" + jahrgang + ";" + land + ";" + weingut + ";" + ort + ";" + umgebung +";" + preis + ";" + bestand + ";" + liter + ";" + alkoholgehalt + ";" + image.getUrl();
     }
 
 

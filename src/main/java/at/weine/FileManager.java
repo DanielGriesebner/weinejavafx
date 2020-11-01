@@ -1,5 +1,7 @@
 package at.weine;
 
+import javafx.scene.image.Image;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -43,9 +45,9 @@ public class FileManager {
         try {
             l = Files.lines(WEINE.toPath()).map(s -> {
                 String[] arr = s.split(";");
-                if (arr.length < 14)
+                if (arr.length < 15)
                     return null;
-                return new Wein(Integer.parseInt(arr[0]), arr[1], arr[3], Boolean.getBoolean(arr[4]), getWeinart(arr[5]), arr[6], arr[7], arr[8], arr[9], arr[10], Double.parseDouble(arr[11]), Integer.parseInt(arr[12]), Double.parseDouble(arr[13]), Float.parseFloat(arr[14]));
+                return new Wein(Integer.parseInt(arr[0]), arr[1], arr[3], Boolean.getBoolean(arr[4]), getWeinart(arr[5]), arr[6], arr[7], arr[8], arr[9], arr[10], Double.parseDouble(arr[11]), Integer.parseInt(arr[12]), Double.parseDouble(arr[13]), Float.parseFloat(arr[14]), new Image(arr[15]));
 
 
             }).collect(Collectors.toList());
@@ -82,8 +84,8 @@ public class FileManager {
 
     }
 
-    public void insertWein( String reebsorte, String qualitaetsbezeichnung, boolean dac, Weinart weinart, String jahrgang, String land, String weingut, String ort, String umgebung, double preis, int bestand, double liter, float alkoholgehalt) {
-      Wein wein = new Wein(++lastIndex, reebsorte, qualitaetsbezeichnung, dac, weinart, jahrgang, land, weingut, ort, umgebung, preis, bestand, liter, alkoholgehalt);
+    public void insertWein( String reebsorte, String qualitaetsbezeichnung, boolean dac, Weinart weinart, String jahrgang, String land, String weingut, String ort, String umgebung, double preis, int bestand, double liter, float alkoholgehalt, Image image) {
+      Wein wein = new Wein(++lastIndex, reebsorte, qualitaetsbezeichnung, dac, weinart, jahrgang, land, weingut, ort, umgebung, preis, bestand, liter, alkoholgehalt, image);
        if (weine.contains(wein)) {
             lastIndex--;
       } else {
