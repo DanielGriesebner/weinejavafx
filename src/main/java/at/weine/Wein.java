@@ -124,6 +124,7 @@ public class Wein extends VBox {
 
         TextField field = makeTextField(this.bestand + "", 50d, "aktuellerBestand");
 
+
         Button plus = new Button("+");
         plus.setId("plus");
 
@@ -134,12 +135,13 @@ public class Wein extends VBox {
         minus.setOnAction(actionEvent -> {
             int zahl = 0;
             try {
-                zahl = differenz.getText().trim().isEmpty() ? 1 : Integer.parseInt(differenz.getText().trim()) * -1;
+                zahl = differenz.getText().trim().isEmpty() ? -1 : Integer.parseInt(differenz.getText().trim()) * -1;
                 differenz.clear();
             }catch (NumberFormatException exception){
                 differenz.clear();
             }
             changeBestand(zahl);
+
             field.setText(bestand + "");
         });
 
@@ -154,6 +156,7 @@ public class Wein extends VBox {
                 differenz.clear();
             }
             changeBestand(zahl);
+
             field.setText(bestand + "");
         });
 
@@ -184,13 +187,36 @@ public class Wein extends VBox {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wein wein = (Wein) o;
+        return dac == wein.dac &&
+                Double.compare(wein.preis, preis) == 0 &&
+                Double.compare(wein.liter, liter) == 0 &&
+                Float.compare(wein.alkoholgehalt, alkoholgehalt) == 0 &&
+                Objects.equals(reebsorte, wein.reebsorte) &&
+                Objects.equals(qualitaetsbezeichnung, wein.qualitaetsbezeichnung) &&
+                weinart == wein.weinart &&
+                Objects.equals(jahrgang, wein.jahrgang) &&
+                Objects.equals(land, wein.land) &&
+                Objects.equals(weingut, wein.weingut) &&
+                Objects.equals(ort, wein.ort) &&
+                Objects.equals(umgebung, wein.umgebung);
+    }
+
+
     public String toCSV(){
         return id + ";" + reebsorte + ";" + qualitaetsbezeichnung + ";" + dac + ";" + weinart + ";" + jahrgang + ";" + land + ";" + weingut + ";" + ort + ";" + umgebung +";" + preis + ";" + bestand + ";" + liter + ";" + alkoholgehalt + ";" + image.getUrl();
     }
 
 
     public void changeBestand(int differenz){
-        this.bestand += differenz;
+        if(bestand + differenz >= 0)
+            bestand += differenz;
+        else
+            bestand = 0;
     }
 
     public int returnId() {
