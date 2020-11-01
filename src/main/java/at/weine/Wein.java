@@ -2,8 +2,11 @@ package at.weine;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +21,7 @@ import java.util.Objects;
 public class Wein extends VBox {
 
     private final double WIDTH = 400d;
-    private final double HEIGHT = 500d;
+    private final double HEIGHT = 550d;
 
     private int id;
 
@@ -71,6 +74,7 @@ public class Wein extends VBox {
 
         createHeader();
         createImage();
+        createBestandGUI();
     }
 
     private void createHeader(){
@@ -109,6 +113,52 @@ public class Wein extends VBox {
         field.setEditable(false);
         field.setId(id);
         return field;
+    }
+
+    private void createBestandGUI(){
+        HBox hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
+
+        TextField differenz = new TextField("");
+        differenz.setPrefWidth(50d);
+
+        TextField field = makeTextField(this.bestand + "", 50d, "aktuellerBestand");
+
+        Button plus = new Button("+");
+        plus.setId("plus");
+
+        hbox.setSpacing(5d);
+        Button minus = new Button("-");
+        minus.setId("minus");
+
+        minus.setOnAction(actionEvent -> {
+            int zahl = 0;
+            try {
+                zahl = differenz.getText().trim().isEmpty() ? 1 : Integer.parseInt(differenz.getText().trim()) * -1;
+                differenz.clear();
+            }catch (NumberFormatException exception){
+                differenz.clear();
+            }
+            changeBestand(zahl);
+            field.setText(bestand + "");
+        });
+
+
+
+        plus.setOnAction(actionEvent -> {
+            int zahl = 0;
+            try {
+                zahl = differenz.getText().trim().isEmpty() ? 1 : Integer.parseInt(differenz.getText().trim());
+                differenz.clear();
+            }catch (NumberFormatException exception){
+                differenz.clear();
+            }
+            changeBestand(zahl);
+            field.setText(bestand + "");
+        });
+
+        hbox.getChildren().addAll(minus, field, plus, differenz);
+        super.getChildren().add(hbox);
     }
 
     @Override
