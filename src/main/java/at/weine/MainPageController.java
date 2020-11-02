@@ -26,5 +26,7 @@ public class MainPageController implements Initializable {
         for(int i = 1; i<11;i++){
             weinefeed.getChildren().add(new Wein(i, "Riesling", "Federspiel" , false, Weinart.Weisswein, "2018", "Deutschland", "Alfons", "asdf", "asdf", 10.50, 2, 1, (float)12.75, image));
         }
+        weinefeed.getChildren().add(new Wein(11, "Riesling", "Federspiel" , false, Weinart.Rotwein, "2018", "Deutschland", "Alfons", "asdf", "asdf", 10.50, 2, 1, (float)12.75, image));
+
     }
 }

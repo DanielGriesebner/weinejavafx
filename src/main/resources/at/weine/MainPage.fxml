@@ -10,16 +10,16 @@
          <center>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
-                <Tab text="Boxen">
+                <Tab fx:id="boxen" text="Boxen">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="ALWAYS">
+                        <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" vbarPolicy="ALWAYS">
                            <content>
                               <FlowPane fx:id="weinefeed" hgap="10.0" prefWrapLength="0.0" vgap="10.0" />
                            </content>
                         </ScrollPane>
                      </content>
                   </Tab>
-                <Tab text="Liste" />
+                <Tab fx:id="liste" text="Liste" />
               </tabs>
             </TabPane>
          </center>

@@ -16,12 +16,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.lang.reflect.WildcardType;
 import java.util.Objects;
 
 public class Wein extends VBox {
 
     private final double WIDTH = 400d;
-    private final double HEIGHT = 550d;
+    private final double HEIGHT = 600d;
 
     private int id;
 
@@ -79,7 +80,9 @@ public class Wein extends VBox {
 
     private void createHeader(){
         HBox hbox = new HBox();
+        hbox.setPrefHeight(60d);
         hbox.setAlignment(Pos.CENTER);
+        hbox.setPrefWidth(WIDTH);
         hbox.setMaxWidth(WIDTH);
         hbox.setSpacing(2d);
 
@@ -88,7 +91,7 @@ public class Wein extends VBox {
         TextField reebsorte = makeTextField(this.reebsorte, width, cssID);
         TextField quali = makeTextField(qualitaetsbezeichnung, width, cssID);
         TextField art = makeTextField(weinart.toString(), width+20, cssID);
-        TextField jahrgang = makeTextField(this.jahrgang, 50d, cssID);
+        TextField jahrgang = makeTextField(this.jahrgang, width-20, cssID);
 
         hbox.getChildren().addAll(reebsorte, quali, art, jahrgang);
         super.getChildren().add(hbox);
@@ -116,19 +119,32 @@ public class Wein extends VBox {
     }
 
     private void createBestandGUI(){
-        HBox hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER);
+        HBox overall = new HBox();
+        overall.setPrefWidth(WIDTH);
+        overall.setPrefHeight(40d);
+        overall.setPadding(new Insets(2));
+        //overall.setAlignment(Pos.);
+
+        HBox rightbox = new HBox();
+        rightbox.setAlignment(Pos.CENTER);
+        rightbox.setPrefWidth(WIDTH/2);
+        rightbox.setSpacing(5d);
+
+        HBox leftbox = new HBox();
+        leftbox.setAlignment(Pos.CENTER);
+        leftbox.setPrefWidth(WIDTH/2);
+
 
         TextField differenz = new TextField("");
         differenz.setPrefWidth(50d);
 
-        TextField field = makeTextField(this.bestand + "", 50d, "aktuellerBestand");
-
+        TextField field = makeTextField(this.bestand + " Flaschen", WIDTH/2, "aktuellerBestand");
+        field.setId("bestand");
 
         Button plus = new Button("+");
         plus.setId("plus");
 
-        hbox.setSpacing(5d);
+        overall.setSpacing(5d);
         Button minus = new Button("-");
         minus.setId("minus");
 
@@ -142,7 +158,7 @@ public class Wein extends VBox {
             }
             changeBestand(zahl);
 
-            field.setText(bestand + "");
+            field.setText(bestand + " Flaschen");
         });
 
 
@@ -157,11 +173,12 @@ public class Wein extends VBox {
             }
             changeBestand(zahl);
 
-            field.setText(bestand + "");
+            field.setText(bestand + " Flaschen");
         });
-
-        hbox.getChildren().addAll(minus, field, plus, differenz);
-        super.getChildren().add(hbox);
+        rightbox.getChildren().addAll(minus,plus,differenz);
+        leftbox.getChildren().add(field);
+        overall.getChildren().addAll(rightbox, leftbox);
+        super.getChildren().add(overall);
     }
 
     @Override

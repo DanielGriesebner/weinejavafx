@@ -1,4 +1,30 @@
 #header{
     -fx-text-fill: black;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
+}
+
+#bestand{
+    -fx-font-size: 16px;
+}
+
+#boxen, #liste{
+    -fx-font-size: 16px;
+}
+
+#scroll{
+    -fx-padding: 5px;
+}
+
+#minus,#plus{
+    -fx-font-size: 16px;
+}
+
+#minus{
+    -fx-background-color: darkgrey;
+    -fx-text-fill: white;
+}
+
+#plus{
+    -fx-background-color: darkgrey;
+    -fx-text-fill: white;
 }
